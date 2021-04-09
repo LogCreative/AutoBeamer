@@ -1,0 +1,14 @@
+\textsf{AutoBeamer} 实用程序旨在转换普通的 \LaTeXe{} 讲义文件翻译为可以编译为 Beamer 幻灯片的对应文档。
+
+该程序尚处于开发初期。决定采用 Rust 语言编写该实用程序。
+
+\begin{figure}[h]
+    \begin{tikzpicture}
+        \tikzstyle{machine} = [draw,inner sep = 10pt];
+        \node[machine] (v2) at (0,0) {词法分析器};
+        \node (v1) at (-3.5,0) {普通的 \LaTeX{} 文档};
+        \draw (v1) edge[->] (v2);
+    \end{tikzpicture}
+    \caption{目前的技术进度}
+\end{figure}
+

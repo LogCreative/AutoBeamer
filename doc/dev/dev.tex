@@ -1,0 +1,19 @@
+\documentclass{ctexrep}
+\usepackage{tikz}
+\usepackage[colorlinks,linkcolor=blue]{hyperref}
+\begin{document}
+    \title{\textsf{AutoBeamer} \textbf{开发文档}}
+    \author{Log Creative}
+    \date{版本 \input{../../VERSION} (\today)}
+    \maketitle
+    \tableofcontents
+
+    \chapter{开发总览}
+
+    \input{chapter/overview.tex}
+
+    \chapter{词法分析器}\footnote{该部分将会被用于编译原理课程的第5次作业第2题。}
+
+    \input{chapter/lexer.tex}
+
+\end{document}
