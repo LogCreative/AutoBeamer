@@ -6,7 +6,7 @@
     \begin{tikzpicture}
         \tikzstyle{machine} = [draw,inner sep = 10pt];
         \node[machine] (v2) at (0,0) {词法分析器};
-        \node (v1) at (-3.5,0) {普通的 \LaTeX{} 文档};
+        \node[text width=7em] (v1) at (-3.5,0) {编译正确的 \LaTeX{} 普通文档};
         \draw (v1) edge[->] (v2);
     \end{tikzpicture}
     \caption{目前的技术进度}
