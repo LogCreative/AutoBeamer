@@ -94,9 +94,9 @@
 \end{figure}
 
 
-对于命令扩展词法单元而言，需要有其已经是命令的先决条件，其 DFA 如图 \ref{fig:extend-dfa} 所示。仍然是在文档是编译正确的前提下进行的。
+对于命令扩展词法单元而言，需要有其已经是命令的先决条件，其 DFA 如图 \ref{fig:extend-dfa} 所示。仍然是在文档是编译正确的前提下进行的，如果没有匹配到扩展命令，将仍然作为 \textbf{command} 词法单元。
 
-\begin{figure}
+\begin{figure}[h]
     \centering
     \begin{tikzpicture}[shorten >=1pt]
         \node[initial,state] (v1) at (0,0) {0};
@@ -128,15 +128,15 @@
         \node[accepting,state] (v16) at (10,-2) {13};
         \node[state] (v13) at (4,-3.5) {14};
         \node[state] (v14) at (6,-3.5) {15};
-        \draw  (v2) edge node[left,font=\ttfamily] {documentclass}(v11);
-        \draw  (v11) edge node[above] {$\backslash$\{}(v12);
-        \draw  (v11) edge node[left] {$\backslash$[}(v13);
-        \draw  (v13) edge node[above] {$\backslash$]}(v14);
-        \draw  (v14) edge node[right] {$\backslash$\}}(v12);
-        \draw  (v12) edge node[above] {$\backslash$w}(v15);
-        \draw  (v15) edge node[above] {$\backslash$\}}(v16);
-        \draw  (v13) edge[loop left] node[left] {$\backslash$w} (v13);
-        \draw  (v15) edge[loop above] node[above] {$\backslash$w}  (v15);
+        \draw  (v2) edge[->] node[left,font=\ttfamily] {documentclass}(v11);
+        \draw  (v11) edge[->] node[above] {$\backslash$\{}(v12);
+        \draw  (v11) edge[->] node[left] {$\backslash$[}(v13);
+        \draw  (v13) edge[->] node[above] {$\backslash$]}(v14);
+        \draw  (v14) edge[->] node[right] {$\backslash$\}}(v12);
+        \draw  (v12) edge[->] node[above] {$\backslash$w}(v15);
+        \draw  (v15) edge[->] node[above] {$\backslash$\}}(v16);
+        \draw  (v13) edge[->,loop left] node[left] {$\backslash$w} (v13);
+        \draw  (v15) edge[->,loop above] node[above] {$\backslash$w}  (v15);
         \node[accepting,state] (v17) at (0,2) {16};
         \draw  (v2) edge[->] node[font=\itshape,left] {other} (v17);
         
