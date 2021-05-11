@@ -6,13 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AutoBeamer</title>
     <link rel="stylesheet" type="text/css" href="main.css">
+    <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.5.0/languages/latex.min.js"></script>
+    <link href="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.5.0/styles/vs.min.css" rel="stylesheet">
 </head>
 <body>
     <h1>AutoBeamer</h1>
     <h4>震惊！从 Markdown 自动生成可以编译为 Beamer 幻灯片的 LaTeX 文档</h4>
     <h5>目前仅支持文字和公式。<span style="display: none;">在线预览不要使用太长的内容。推荐复制到本地。</span></h5>
     <div><img src="img/md.svg"><input id="markdownInput" type="file"></div>
-    <pre id="beamerLaTeX"></pre>
+    <pre><code class="latex-html" id="beamerLaTeX"></code></pre>
     <span style="display: none;">
         <div>
             <button id="buttonCompile">Compile</button>
@@ -21,7 +24,6 @@
             </div>
         </div>
     </span>
-    
     <script src="main.js"></script>
 </body>
 </html>

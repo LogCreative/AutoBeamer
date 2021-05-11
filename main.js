@@ -30,9 +30,11 @@ document.getElementById('markdownInput').addEventListener("change",function(e){
         file_content = file_content.replace(/\\begin\{frame\}\[allowframebreaks\]\r\n\r\n\\end\{frame\}/gm,""); // Windows
         file_content = file_content.replace(/\\begin\{frame\}\[allowframebreaks\]\n\n\\end\{frame\}/gm,"");     // Linux
         document.getElementById('beamerLaTeX').innerHTML = file_content;
+        hljs.highlightBlock(document.getElementById('beamerLaTeX'));
     }
 });
 
 document.getElementById('buttonCompile').addEventListener("click", function(){
     document.getElementById('beamerOutput').src = "https://latexonline.cc/compile?text=" + document.getElementById('beamerLaTeX').innerHTML.replace(/\%.+/g,"").replace(/[+]/g,"%2B");
 });
+
