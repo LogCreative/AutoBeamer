@@ -12,7 +12,7 @@ document.getElementById('markdownInput').addEventListener("change",function(e){
         // ##### boldface with a space
         file_content = file_content.replace(/\#\#\#\#\# (.+)/g,"\\par\\framebreak\n\\textbf{$1} ")
                                     .replace(/\#\#\#\# (.+)/g,"\\par\\framebreak\n\\end{frame}\n\\begin{frame}[allowframebreaks]\n\\frametitle{$1}")
-                                    .replace(/\#\#\# (.+)/g,"\\end{frame}\n\\subsection{$1}\\begin{frame}[allowframebreaks]\n\\frametitle{$1}")
+                                    .replace(/\#\#\# (.+)/g,"\\end{frame}\n\\subsection{$1}\n\\begin{frame}[allowframebreaks]\n\\frametitle{$1}")
                                     .replace(/\#\# (.+)/g, "\\end{frame}\n\\section{$1}\n\\begin{frame}[allowframebreaks]")
                                     .replace(/\# (.+)/g, "\\documentclass[UTF8]{ctexbeamer}\n\\usetheme{CambridgeUS}\n\\usefonttheme{professionalfonts}\n\\begin{document}\n\\title{$1}\n\\maketitle\n\\begin{frame}[allowframebreaks]");
         file_content = file_content.replace(/\*\*(.*)\*\*/g,"\\textbf\{$1\}")  // boldface syntax
@@ -27,7 +27,8 @@ document.getElementById('markdownInput').addEventListener("change",function(e){
         // final close
         file_content += "\n\\end{frame}\n\\end{document}";
         // final cleanup
-        file_content = file_content.replace(/\\begin\{frame\}\[allowframebreaks\]\n\n\\end\{frame\}/gm,"");
+        file_content = file_content.replace(/\\begin\{frame\}\[allowframebreaks\]\r\n\r\n\\end\{frame\}/gm,""); // Windows
+        file_content = file_content.replace(/\\begin\{frame\}\[allowframebreaks\]\n\n\\end\{frame\}/gm,"");     // Linux
         document.getElementById('beamerLaTeX').innerHTML = file_content;
     }
 });
