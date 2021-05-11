@@ -1,2 +1,2 @@
 # AutoBeamer
-A beamer interpreter for regular LaTeX documents.
+A package to provide macros for auto-splitting regular LaTeX document into beamer.
