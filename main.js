@@ -31,7 +31,26 @@ document.getElementById('markdownInput').addEventListener("change",function(e){
         file_content = file_content.replace(/\\begin\{frame\}\[allowframebreaks\]\n\n\\end\{frame\}/gm,"");     // Linux
         document.getElementById('beamerLaTeX').innerHTML = file_content;
         hljs.highlightBlock(document.getElementById('beamerLaTeX'));
+        document.getElementById('buttonSaveFile').style.display = "inline-block";
     }
+});
+
+function saveShareContent (content, fileName) {
+    let downLink = document.createElement('a')
+    downLink.download = fileName
+    //字符内容转换为blob地址
+    let blob = new Blob([content])
+    downLink.href = URL.createObjectURL(blob)
+    // 链接插入到页面
+    document.body.appendChild(downLink)
+    downLink.click()
+    // 移除下载链接
+    document.body.removeChild(downLink)
+}
+
+document.getElementById('buttonSaveFile').addEventListener("click",function(){
+    var cdate = new Date();
+    saveShareContent(document.getElementById('beamerLaTeX').innerText,"autobeamer" + cdate.toLocaleTimeString() + ".tex");
 });
 
 document.getElementById('buttonCompile').addEventListener("click", function(){

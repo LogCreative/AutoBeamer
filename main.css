@@ -1,3 +1,18 @@
 #beamerLaTeX {
     font-family: 'Consolas', 'Courier New', Courier, monospace;
 }
+
+#buttonSaveFile {
+    display: none;
+}
+
+.io {
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+img {
+    width: 24px;
+    height: 24px;
+    margin: 0px 5px;
+    margin-bottom: -5px;
+}
