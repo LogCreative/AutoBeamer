@@ -1,0 +1,49 @@
+%% mini AutoBeamer %%%
+
+% In your premable
+% \documentclass{beamer}
+% \usepackage{autobeamer}
+
+% Cover your contents in
+% \begin{frame}[allowframebreaks]
+%  ...
+% \end{frame}
+
+% hlight section and break
+
+\def\subsection#1{
+    \par\framebreak
+    {
+        \bfseries \usebeamercolor[fg]{titlelike} #1
+    }
+}
+\def\section#1{
+    \par\framebreak
+    {
+        \bfseries \large \usebeamercolor[fg]{titlelike} #1
+    }
+    \par
+}
+
+% similar to part pages
+
+\def\part#1{
+    \framebreak
+    \vspace*{0.3\paperheight}
+    \begin{center}
+        \Large\usebeamercolor[fg]{titlelike} #1 
+    \end{center}
+    \vspace*{0.3\paperheight}
+    \newpage
+}
+\def\chapter#1{
+    \framebreak
+    \vspace*{0.3\paperheight}
+    \begin{center}
+        \Large\usebeamercolor[fg]{titlelike} #1 
+    \end{center}
+    \vspace*{0.3\paperheight}
+    \newpage
+}
+
+%%%%%%%%%%%%%%%%%%%%%%
