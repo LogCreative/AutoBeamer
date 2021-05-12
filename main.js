@@ -30,7 +30,7 @@ document.getElementById('markdownInput').addEventListener("change",function(e){
         file_content += "\n\\end{frame}\n\\end{document}";
         // final cleanup
         file_content = file_content.replace(/\\begin\{frame\}\[allowframebreaks\]\r\n\r\n\\end\{frame\}/gm,""); // Windows
-        file_content = file_content.replace(/\\begin\{frame\}\[allowframebreaks\]\n\n\\end\{frame\}/gm,"");     // *nux
+        file_content = file_content.replace(/\\begin\{frame\}\[allowframebreaks\]\n\n\\end\{frame\}/gm,"");     // *nix
         document.getElementById('beamerLaTeX').innerHTML = file_content;
         hljs.highlightBlock(document.getElementById('beamerLaTeX'));
         document.getElementById('buttonSaveFile').style.display = "inline-block";
@@ -57,14 +57,14 @@ document.getElementById('buttonSaveFile').addEventListener("click",function(){
 });
 
 document.getElementById('buttonCompile').addEventListener("click", function(){
-
+    // Use CJK for preview
     var raw = document.getElementById('beamerLaTeX').innerText;
     raw = raw.replace("\\documentclass\[UTF8\]\{ctexbeamer\}","\\documentclass\[draft\]\{beamer\}")
         .replace("\\usepackage\{ctex\}","\\usepackage\{CJKutf8\}")
         .replace("\\begin\{document\}","\\begin\{document\}\n\\begin\{CJK\}\{UTF8\}\{gbsn\}")
         .replace("\\end\{document\}","\\end\{CJK\}\\end\{document\}");
-    console.log(raw);
 
     document.getElementById('beamerOutput').src = "https://latexonline.cc/compile?text=" + encodeURIComponent(raw);
+    document.getElementById('buttonCompile').innerText = "预览";
 });
 
