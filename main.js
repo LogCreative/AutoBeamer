@@ -18,7 +18,7 @@ document.getElementById('markdownInput').addEventListener("change",function(e){
         file_content = file_content.replace(/\*\*(.*)\*\*/g,"\\textbf\{$1\}")  // boldface syntax
             .replace(/\*(.+)\*/g,"\\emph{$1}")  // italc syntax
             .replace(/\~\~(.*?)\~\~/g,"\\sout{$1}");    // delete line 
-            file_content = file_content.replace(/\!\[(.*?)\]\((.*?)\)/g,"\\begin\{figure\}\n\\centering\n\\includegraphics\[width=0.8\\textwidth\]\{$2\}\n\\caption\{$1\}\n\\end\{figure\}")// figure syntax
+            file_content = file_content.replace(/\!\[(.*?)\]\((.*?)\)/g,"\\begin\{figure\}\n\\centering\n\\includegraphics[height=0.5\\textheight]\{$2\}\n\\caption\{$1\}\n\\end\{figure\}")// figure syntax
             .replace(/\[(.*?)\]\((.*?)\)/g,"\\link\{$2\}\{$1\}"); // link syntax
         // block syntax
         file_content = file_content.replace(/`([^`]+)`/g,"\\texttt\{$1\}")
@@ -34,6 +34,7 @@ document.getElementById('markdownInput').addEventListener("change",function(e){
         document.getElementById('beamerLaTeX').innerHTML = file_content;
         hljs.highlightBlock(document.getElementById('beamerLaTeX'));
         document.getElementById('buttonSaveFile').style.display = "inline-block";
+        document.getElementById('textSection').style.display = "flex";
     }
 });
 
@@ -56,6 +57,14 @@ document.getElementById('buttonSaveFile').addEventListener("click",function(){
 });
 
 document.getElementById('buttonCompile').addEventListener("click", function(){
-    document.getElementById('beamerOutput').src = "https://latexonline.cc/compile?text=" + document.getElementById('beamerLaTeX').innerHTML.replace(/\%.+/g,"").replace(/[+]/g,"%2B");
+
+    var raw = document.getElementById('beamerLaTeX').innerText;
+    raw = raw.replace("\\documentclass\[UTF8\]\{ctexbeamer\}","\\documentclass\[draft\]\{beamer\}")
+        .replace("\\usepackage\{ctex\}","\\usepackage\{CJKutf8\}")
+        .replace("\\begin\{document\}","\\begin\{document\}\n\\begin\{CJK\}\{UTF8\}\{gbsn\}")
+        .replace("\\end\{document\}","\\end\{CJK\}\\end\{document\}");
+    console.log(raw);
+
+    document.getElementById('beamerOutput').src = "https://latexonline.cc/compile?text=" + encodeURIComponent(raw);
 });
 

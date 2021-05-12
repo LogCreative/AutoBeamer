@@ -16,15 +16,15 @@
     <h5><span style="display: none;">在线预览不要使用太长的内容。推荐复制到本地。</span></h5>
     <div class="io">选择你的 MarkDown<img src="img/md.svg"><input id="markdownInput" type="file"></div>
     <div class="io">输出我的 LaTeX<img src="img/tex.svg"><button id="buttonSaveFile">保存文件</button></div>
-    <pre><code class="latex-html" id="beamerLaTeX"></code></pre>
-    <span style="display: none;">
-        <div>
-            <button id="buttonCompile">Compile</button>
+    <div id="textSection">
+        <pre><code class="latex-html" id="beamerLaTeX"></code></pre>
+        <div id="preview">
+            <button id="buttonCompile">预览</button>
             <div>
                 <iframe id="beamerOutput"></iframe>
             </div>
         </div>
-    </span>
+    </div>
     <script src="main.js"></script>
 </body>
 </html>

@@ -1,9 +1,26 @@
+#buttonSaveFile {
+    display: none;
+}
+
+#textSection {
+    display: none;
+    align-items: stretch;
+    justify-content: stretch;
+}
+
 #beamerLaTeX {
+    white-space: pre-wrap;
+    word-wrap: break-word;
     font-family: 'Consolas', 'Courier New', Courier, monospace;
 }
 
-#buttonSaveFile {
-    display: none;
+#preview {
+    min-width: 30%;
+}
+
+#beamerOutput {
+    width: 100%;
+    height: 500px;
 }
 
 .io {
