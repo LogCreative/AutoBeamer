@@ -5,6 +5,10 @@ document.getElementById('markdownInput').addEventListener("change",function(e){
     reader.readAsText(mdfile);
     reader.onload = function() {
         file_content = this.result;
+        // escape characters
+        file_content = file_content.replace('&','\\&')
+            .replace('%','\\%')
+            .replace('~','\~');
         // # title
         // ## section 
         // ### subsection 
@@ -15,8 +19,8 @@ document.getElementById('markdownInput').addEventListener("change",function(e){
             .replace(/\#\#\# (.+)/g,"\\end{frame}\n\\subsection{$1}\n\\begin{frame}[allowframebreaks]\n\\frametitle{$1}")
             .replace(/\#\# (.+)/g, "\\end{frame}\n\\section{$1}\n\\begin{frame}[allowframebreaks]")
             .replace(/\# (.+)/g, "\\documentclass[UTF8]{ctexbeamer}\n\\usepackage{ctex}\n\\usetheme{CambridgeUS}\n\\usefonttheme{professionalfonts}\n\\setbeamertemplate\{frametitle continuation\}\[from second\]\[(\\uppercase\\expandafter{\\romannumeral\\insertcontinuationcount\})\]\n\\def\\link#1#2{\\href{#1}{\\color{blue} #2}}\n\\usepackage{listings}\n\\begin{document}\n\\title{$1}\n\\maketitle\n\\begin{frame}\n\\frametitle{提纲}\n\\tableofcontents\n\\end{frame}\n\\AtBeginSubsection\[\]\{\n\\begin{frame}\n\\frametitle{提纲\}\n\\tableofcontents[currentsection,currentsubsection]\n\\end{frame}\n\}\n\\begin{frame}[allowframebreaks]");
-        file_content = file_content.replace(/\*\*(.*)\*\*/g,"\\textbf\{$1\}")  // boldface syntax
-            .replace(/\*(.+)\*/g,"\\emph{$1}")  // italc syntax
+        file_content = file_content.replace(/\*\*([^\*]*)\*\*/g,"\\textbf\{$1\}")  // boldface syntax
+            .replace(/\*([^\*]+)\*/g,"\\emph{$1}")  // italc syntax
             .replace(/\~\~(.*?)\~\~/g,"\\sout{$1}");    // delete line 
             file_content = file_content.replace(/\!\[(.*?)\]\((.*?)\)/g,"\\begin\{figure\}\n\\centering\n\\includegraphics[height=0.5\\textheight]\{$2\}\n\\caption\{$1\}\n\\end\{figure\}")// figure syntax
             .replace(/\[(.*?)\]\((.*?)\)/g,"\\link\{$2\}\{$1\}"); // link syntax
@@ -24,7 +28,7 @@ document.getElementById('markdownInput').addEventListener("change",function(e){
         file_content = file_content.replace(/`([^`]+)`/g,"\\texttt\{$1\}")
             .replace(/```\n([\s\S]+)```/gm,"\\begin{verbatim}\n$1\n\\end{verbatim}")
             .replace(/```(.+)\n([\s\S]+)```/gm,"\\begin{lstlisting}[language=$1]\n$2\n\\end{lstlisting}")
-            .replace(/-+/g,"")
+            .replace(/--+/g,"")
             .replace(/> (.*)/g,"\\begin{block}\n$1\n\\end{block}");
         // item enum table
         // close
