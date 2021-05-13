@@ -27,16 +27,16 @@ document.getElementById('markdownInput').addEventListener("change",function(e){
             .replace(/\[(.*?)\]\((.*?)\)/g,"\\link\{$2\}\{$1\}"); // link syntax
         // block syntax
         file_content = file_content
-            .replace(/```\n([\s\S]+)```/gm,"\\begin\{verbatim\}\n$1\n\\end\{verbatim\}")
-            .replace(/```(.+)\n([\s\S]+)```/gm,"\\begin\{lstlisting\}\[language=$1\]\n$2\n\\end\{lstlisting\}")
+            .replace(/```\n([\s\S]+)```/gm,"\\end{frame}\\begin\{frame\}\[allowframebreaks,fragile\]\n\\begin\{verbatim\}\n$1\n\\end\{verbatim\}\n\\end{frame}\n\\begin{frame}[allowframebreaks]\n")
+            .replace(/```(.+)\n([\s\S]+)```/gm,"\\end{frame}\\begin\{frame\}\[allowframebreaks,fragile\]\n\\begin\{lstlisting\}\[language=$1\]\n$2\n\\end\{lstlisting\}\n\\end{frame}\n\\begin{frame}[allowframebreaks]\n")
             .replace(/`([^`]+)`/g,"\\texttt\{$1\}")
             .replace(/--+/g,"")
-            .replace(/> (.*)/g,"\\begin{block}\n$1\n\\end{block}");
+            .replace(/> (.*)/g,"\\begin\{block\}\{\}\n$1\n\\end\{block\}");
         // item enum table
         // close
         file_content += "\n\\end{frame}\n\\end{document}";
         // cleanup
-        file_content = file_content.replace(/\\begin\{frame\}\[allowframebreaks\]\n\n\\end\{frame\}/gm,"");
+        file_content = file_content.replace(/\\begin\{frame\}\[allowframebreaks\]\n+\\end\{frame\}/gm,"");
         document.getElementById('beamerLaTeX').innerHTML = file_content;
         hljs.highlightBlock(document.getElementById('beamerLaTeX'));
         document.getElementById('buttonSaveFile').style.display = "inline-block";
