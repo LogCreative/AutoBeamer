@@ -26,9 +26,10 @@ document.getElementById('markdownInput').addEventListener("change",function(e){
             .replace(/```(.+)\n([\s\S]+)```/gm,"\\begin{lstlisting}[language=$1]\n$2\n\\end{lstlisting}")
             .replace(/-+/g,"")
             .replace(/> (.*)/g,"\\begin{block}\n$1\n\\end{block}");
-        // final close
+        // item enum table
+        // close
         file_content += "\n\\end{frame}\n\\end{document}";
-        // final cleanup
+        // cleanup
         file_content = file_content.replace(/\\begin\{frame\}\[allowframebreaks\]\r\n\r\n\\end\{frame\}/gm,""); // Windows
         file_content = file_content.replace(/\\begin\{frame\}\[allowframebreaks\]\n\n\\end\{frame\}/gm,"");     // *nix
         document.getElementById('beamerLaTeX').innerHTML = file_content;

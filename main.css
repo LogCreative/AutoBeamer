@@ -1,7 +1,51 @@
+header {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    border-bottom: 1pt solid black;
+    padding: 5pt 0pt;
+    margin: 5pt 0pt;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+#title {
+    font-family: Century, 'Century Schoolbook', serif;
+    font-weight: bold;
+    font-size:x-large;
+}
+#slogan {
+    font-size: small;
+    display: flex;
+    flex-direction: column;
+}
+#tips {
+    display: flex;
+    margin-top: 3pt;
+}
+.tip {
+    text-align: center;
+    color: darkcyan;
+    border: 1pt solid darkcyan;
+    border-radius: 5pt;
+    padding: 3pt;
+    margin-right: 3pt;
+}
+.tip .icon {
+    height: 20px;
+}
+
+.io {
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+#main img {
+    width: 24px;
+    height: 24px;
+    margin: 0px 5px;
+    margin-bottom: -5px;
+}
+
 #buttonSaveFile {
     display: none;
 }
-
 #textSection {
     display: none;
     align-items: stretch;
@@ -13,23 +57,10 @@
     word-wrap: break-word;
     font-family: 'Consolas', 'Courier New', Courier, monospace;
 }
-
 #preview {
     min-width: 30%;
 }
-
 #beamerOutput {
     width: 100%;
     height: 500px;
-}
-
-.io {
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-img {
-    width: 24px;
-    height: 24px;
-    margin: 0px 5px;
-    margin-bottom: -5px;
 }

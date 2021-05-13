@@ -11,17 +11,27 @@
     <link href="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.5.0/styles/vs.min.css" rel="stylesheet">
 </head>
 <body>
-    <h1>AutoBeamer</h1>
-    <h4>震惊！从 Markdown 自动生成 Beamer 幻灯片</h4>
-    <h5><span style="display: none;">在线预览不要使用太长的内容。推荐复制到本地。</span></h5>
-    <div class="io">选择你的 MarkDown<img src="img/md.svg"><input id="markdownInput" type="file"></div>
-    <div class="io">输出我的 LaTeX<img src="img/tex.svg"><button id="buttonSaveFile">保存文件</button></div>
-    <div id="textSection">
-        <pre><code class="latex-html" id="beamerLaTeX"></code></pre>
-        <div id="preview">
-            <button id="buttonCompile">点击预览</button>
-            <div>
-                <iframe id="beamerOutput"></iframe>
+    <header>
+        <div id="title">AutoBeamer</div>
+        <div id="slogan">
+            <div>震惊！从 Markdown 自动生成 Beamer 幻灯片</div>
+            <div id="tips">
+                <div class="tip"><div class="icon">🆘</div><div>可供紧急使用</div></div>
+                <div class="tip"><div class="icon"><a href="https://github.com/LogCreative/AutoBeamer/tree/pkg" target="_blank"><img src="https://img.shields.io/badge/branch-pkg-blueviolet"></a></div><div>内嵌迷你版本</div></div>
+                <div class="tip"><div class="icon"><a href="https://logcreative.github.io/LaTeXSparkle/" target="_blank"><img src="https://img.shields.io/badge/Under-LSP-yellowgreen"></a></div>像模像样 LaTeX</div>
+            </div>
+        </div>
+    </header>
+    <div id="main">
+            <div class="io">选择你的<img src="img/md.svg"><input id="markdownInput" type="file" accept=".md"></div>
+        <div class="io">输出我的<img src="img/tex.svg"><button id="buttonSaveFile">保存文件</button></div>
+        <div id="textSection">
+            <pre><code class="latex-html" id="beamerLaTeX"></code></pre>
+            <div id="preview">
+                <button id="buttonCompile">点击预览</button>
+                <div>
+                    <iframe id="beamerOutput"></iframe>
+                </div>
             </div>
         </div>
     </div>
