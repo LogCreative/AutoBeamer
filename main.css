@@ -51,14 +51,17 @@ header {
     align-items: stretch;
     justify-content: stretch;
 }
-
+#codeseg {
+    width: 70%;
+}
 #beamerLaTeX {
+    background: transparent;
     white-space: pre-wrap;
     word-wrap: break-word;
     font-family: 'Consolas', 'Courier New', Courier, monospace;
 }
 #preview {
-    min-width: 30%;
+    width: 30%;
 }
 #beamerOutput {
     width: 100%;

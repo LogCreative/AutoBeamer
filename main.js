@@ -10,22 +10,31 @@ document.getElementById('markdownInput').addEventListener("change",function(e){
             .replace(/%/g,'\\%')
             .replace(/~/g,'\~')
             .replace(/\r\n/g,'\n');         // Adapte CRLF
-        // # title
-        // ## section 
-        // ### subsection 
-        // #### new frame
-        // ##### boldface with a space
-        file_content = file_content.replace(/\#\#\#\#\# (.+)/g,"\\par\\framebreak\n\\textbf{$1} ")
+        file_content = file_content
+            // ##### boldface with a space
+            .replace(/\#\#\#\#\# (.+)/g,"\\par\\framebreak\n\\textbf{$1} ")
+            // #### new frame
             .replace(/\#\#\#\# (.+)/g,"\\par\\framebreak\n\\end{frame}\n\\begin{frame}[allowframebreaks]\n\\frametitle{$1}")
+            // ### subsection 
             .replace(/\#\#\# (.+)/g,"\\end{frame}\n\\subsection{$1}\n\\begin{frame}[allowframebreaks]\n\\frametitle{$1}")
+            // ## section 
             .replace(/\#\# (.+)/g, "\\end{frame}\n\\section{$1}\n\\begin{frame}[allowframebreaks]")
+            // # title
             .replace(/\# (.+)/g, "\\documentclass[UTF8]{ctexbeamer}\n\\usepackage{ctex}\n\\usetheme{CambridgeUS}\n\\usefonttheme{professionalfonts}\n\\setbeamertemplate\{frametitle continuation\}\[from second\]\[(\\uppercase\\expandafter{\\romannumeral\\insertcontinuationcount\})\]\n\\def\\link#1#2{\\href{#1}{\\color{blue} #2}}\n\\usepackage{listings}\n\\setlength{\\parskip}{0.5em}\n\\setlength{\\parindent}{2em}\n\\begin{document}\n\\title{$1}\n\\maketitle\n\\begin{frame}\n\\frametitle{提纲}\n\\tableofcontents\n\\end{frame}\n\\AtBeginSubsection\[\]\{\n\\begin{frame}\n\\frametitle{提纲\}\n\\tableofcontents[currentsection,currentsubsection]\n\\end{frame}\n\}\n\\begin{frame}[allowframebreaks]");
-        file_content = file_content.replace(/\*\*([^\*]*)\*\*/g,"\\textbf\{$1\}")  // boldface syntax
-            .replace(/\*([^\*]+)\*/g,"\\emph{$1}")  // italc syntax
-            .replace(/\~\~(.*?)\~\~/g,"\\sout{$1}");    // delete line 
-            file_content = file_content.replace(/\!\[(.*?)\]\((.*?)\)/g,"\\begin\{figure\}\n\\centering\n\\includegraphics[height=0.5\\textheight]\{$2\}\n\\caption\{$1\}\n\\end\{figure\}")// figure syntax
-            .replace(/\[(.*?)\]\((.*?)\)/g,"\\link\{$2\}\{$1\}"); // link syntax
+        file_content = file_content
+            // boldface syntax
+            .replace(/\*\*([^\*]*)\*\*/g,"\\textbf\{$1\}") 
+            // italc syntax 
+            .replace(/\*([^\*]+)\*/g,"\\emph{$1}")  
+            // delete line 
+            .replace(/\~\~(.*?)\~\~/g,"\\sout{$1}"); 
+        file_content = file_content
+            // figure syntax 
+            .replace(/\!\[(.*?)\]\((.*?)\)/g,"\\begin\{figure\}\n\\centering\n\\includegraphics[height=0.5\\textheight]\{$2\}\n\\caption\{$1\}\n\\end\{figure\}")
+            // link syntax
+            .replace(/\[(.*?)\]\((.*?)\)/g,"\\link\{$2\}\{$1\}"); 
         // blocks
+        // TODO: multiple layers
         var block_searching = function(reg,id,replacer,begenv,endenv){
             while((bitems = reg.exec(file_content))!=null){
                 var content = bitems[0];
@@ -35,16 +44,18 @@ document.getElementById('markdownInput').addEventListener("change",function(e){
                 file_content = file_content.substring(0,index) + begenv + content + endenv + file_content.substring(index+length,file_content.length);
             }
         };
+        // block
         block_searching(/(\n>.*)+/,/>/g,"","\n\\begin{block}{}","\n\\end{block}");
+        // item
         block_searching(/(\n- .*)+/,/-/g,"\t\\item","\n\\begin{itemize}","\n\\end{itemize}");
+        // enum
         block_searching(/(\n\d\. .*)+/,/\d\./g,"\t\\item","\n\\begin{enumerate}","\n\\end{enumerate}");
+        // TODO: table
         // verbatim
         file_content = file_content
             .replace(/```\n([\s\S]+)```/gm,"\\end{frame}\\begin\{frame\}\[allowframebreaks,fragile\]\n\\begin\{verbatim\}\n$1\n\\end\{verbatim\}\n\\end{frame}\n\\begin{frame}[allowframebreaks]\n")
             .replace(/```(.+)\n([\s\S]+)```/gm,"\\end{frame}\\begin\{frame\}\[allowframebreaks,fragile\]\n\\begin\{lstlisting\}\[language=$1\]\n$2\n\\end\{lstlisting\}\n\\end{frame}\n\\begin{frame}[allowframebreaks]\n")
             .replace(/`([^`]+)`/g,"\\texttt\{$1\}")
-            // .replace()
-            // .replace(/\n> (.*)/g,"\\begin\{block\}\{\}\n$1\n\\end\{block\}")
             .replace(/--+/g,"");
         // close
         file_content += "\n\\end{frame}\n\\end{document}";
