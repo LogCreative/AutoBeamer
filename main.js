@@ -8,7 +8,8 @@ document.getElementById('markdownInput').addEventListener("change",function(e){
         // escape characters
         file_content = file_content.replace('&','\\&')
             .replace('%','\\%')
-            .replace('~','\~');
+            .replace('~','\~')
+            .replace(/\r\n/g,'\n');         // Adapte CRLF
         // # title
         // ## section 
         // ### subsection 
@@ -25,17 +26,17 @@ document.getElementById('markdownInput').addEventListener("change",function(e){
             file_content = file_content.replace(/\!\[(.*?)\]\((.*?)\)/g,"\\begin\{figure\}\n\\centering\n\\includegraphics[height=0.5\\textheight]\{$2\}\n\\caption\{$1\}\n\\end\{figure\}")// figure syntax
             .replace(/\[(.*?)\]\((.*?)\)/g,"\\link\{$2\}\{$1\}"); // link syntax
         // block syntax
-        file_content = file_content.replace(/`([^`]+)`/g,"\\texttt\{$1\}")
-            .replace(/```\n([\s\S]+)```/gm,"\\begin{verbatim}\n$1\n\\end{verbatim}")
-            .replace(/```(.+)\n([\s\S]+)```/gm,"\\begin{lstlisting}[language=$1]\n$2\n\\end{lstlisting}")
+        file_content = file_content
+            .replace(/```\n([\s\S]+)```/gm,"\\begin\{verbatim\}\n$1\n\\end\{verbatim\}")
+            .replace(/```(.+)\n([\s\S]+)```/gm,"\\begin\{lstlisting\}\[language=$1\]\n$2\n\\end\{lstlisting\}")
+            .replace(/`([^`]+)`/g,"\\texttt\{$1\}")
             .replace(/--+/g,"")
             .replace(/> (.*)/g,"\\begin{block}\n$1\n\\end{block}");
         // item enum table
         // close
         file_content += "\n\\end{frame}\n\\end{document}";
         // cleanup
-        file_content = file_content.replace(/\\begin\{frame\}\[allowframebreaks\]\r\n\r\n\\end\{frame\}/gm,""); // Windows
-        file_content = file_content.replace(/\\begin\{frame\}\[allowframebreaks\]\n\n\\end\{frame\}/gm,"");     // *nix
+        file_content = file_content.replace(/\\begin\{frame\}\[allowframebreaks\]\n\n\\end\{frame\}/gm,"");
         document.getElementById('beamerLaTeX').innerHTML = file_content;
         hljs.highlightBlock(document.getElementById('beamerLaTeX'));
         document.getElementById('buttonSaveFile').style.display = "inline-block";
