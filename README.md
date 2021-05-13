@@ -10,7 +10,7 @@ A package to provide macros for auto-splitting regular LaTeX document into beame
 % Your original dependencies here ...
 
 \begin{document}
-    \begin{frame}[allowframebreaks]
+    \begin{frame}[allowframebreaks=0.8,fragile]
         % Your full article ...
     \end{frame}
 \end{document}

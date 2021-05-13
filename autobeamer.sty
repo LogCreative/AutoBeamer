@@ -1,11 +1,11 @@
-%% mini AutoBeamer %%%
+%%%% mini AutoBeamer %%%
 
 % In your premable
 % \documentclass{beamer}
 % \usepackage{autobeamer}
 
 % Cover your contents in
-% \begin{frame}[allowframebreaks]
+% \begin{frame}[allowframebreaks=0.8,fragile]
 %  ...
 % \end{frame}
 
@@ -47,3 +47,12 @@
 }
 
 %%%%%%%%%%%%%%%%%%%%%%
+
+% beamer global settings
+\usefonttheme{professionalfonts}
+\setbeamertemplate{frametitle continuation}[from second][(\uppercase\expandafter{\romannumeral\insertcontinuationcount})]
+
+% paragraph
+\setlength{\parskip}{0.5em}
+\setlength{\parindent}{2em}
+
