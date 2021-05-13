@@ -33,10 +33,16 @@ header {
     height: 20px;
 }
 #format {
-    float: right;
+    display: block;
+    
     width: 80px;
     text-align: left;
     font-size: x-small;
+}
+#toolbar{
+    display: flex; 
+    width: 100%; 
+    justify-content: space-between;
 }
 
 .io {
