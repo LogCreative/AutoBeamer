@@ -12,7 +12,7 @@ header {
     font-weight: bold;
     font-size:x-large;
 }
-#slogan {
+.slogan {
     font-size: small;
     display: flex;
     flex-direction: column;

@@ -6,9 +6,9 @@ document.getElementById('markdownInput').addEventListener("change",function(e){
     reader.onload = function() {
         file_content = this.result;
         // escape characters
-        file_content = file_content.replace('&','\\&')
-            .replace('%','\\%')
-            .replace('~','\~')
+        file_content = file_content.replace(/&/g,'\\&')
+            .replace(/%/g,'\\%')
+            .replace(/~/g,'\~')
             .replace(/\r\n/g,'\n');         // Adapte CRLF
         // # title
         // ## section 
@@ -25,14 +25,27 @@ document.getElementById('markdownInput').addEventListener("change",function(e){
             .replace(/\~\~(.*?)\~\~/g,"\\sout{$1}");    // delete line 
             file_content = file_content.replace(/\!\[(.*?)\]\((.*?)\)/g,"\\begin\{figure\}\n\\centering\n\\includegraphics[height=0.5\\textheight]\{$2\}\n\\caption\{$1\}\n\\end\{figure\}")// figure syntax
             .replace(/\[(.*?)\]\((.*?)\)/g,"\\link\{$2\}\{$1\}"); // link syntax
-        // block syntax
+        // blocks
+        var block_searching = function(reg,id,replacer,begenv,endenv){
+            while((bitems = reg.exec(file_content))!=null){
+                var content = bitems[0];
+                var index = bitems.index;
+                var length = content.length;
+                content = content.replace(id,replacer);
+                file_content = file_content.substring(0,index) + begenv + content + endenv + file_content.substring(index+length,file_content.length);
+            }
+        };
+        block_searching(/(\n>.*)+/,/>/g,"","\n\\begin{block}{}","\n\\end{block}");
+        block_searching(/(\n- .*)+/,/-/g,"\t\\item","\n\\begin{itemize}","\n\\end{itemize}");
+        block_searching(/(\n\d\. .*)+/,/\d\./g,"\t\\item","\n\\begin{enumerate}","\n\\end{enumerate}");
+        // verbatim
         file_content = file_content
             .replace(/```\n([\s\S]+)```/gm,"\\end{frame}\\begin\{frame\}\[allowframebreaks,fragile\]\n\\begin\{verbatim\}\n$1\n\\end\{verbatim\}\n\\end{frame}\n\\begin{frame}[allowframebreaks]\n")
             .replace(/```(.+)\n([\s\S]+)```/gm,"\\end{frame}\\begin\{frame\}\[allowframebreaks,fragile\]\n\\begin\{lstlisting\}\[language=$1\]\n$2\n\\end\{lstlisting\}\n\\end{frame}\n\\begin{frame}[allowframebreaks]\n")
             .replace(/`([^`]+)`/g,"\\texttt\{$1\}")
-            .replace(/--+/g,"")
-            .replace(/> (.*)/g,"\\begin\{block\}\{\}\n$1\n\\end\{block\}");
-        // item enum table
+            // .replace()
+            // .replace(/\n> (.*)/g,"\\begin\{block\}\{\}\n$1\n\\end\{block\}")
+            .replace(/--+/g,"");
         // close
         file_content += "\n\\end{frame}\n\\end{document}";
         // cleanup
