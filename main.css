@@ -32,6 +32,12 @@ header {
 .tip .icon {
     height: 20px;
 }
+#format {
+    float: right;
+    width: 80px;
+    text-align: left;
+    font-size: x-small;
+}
 
 .io {
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;

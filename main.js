@@ -45,7 +45,8 @@ document.getElementById('markdownInput').addEventListener("change",function(e){
             }
         };
         // block
-        block_searching(/(\n>.*)+/,/>/g,"","\n\\begin{block}{}","\n\\end{block}");
+        // TODO: math conflict
+        block_searching(/(\n> .*)+/,/>/g,"","\n\\begin{block}{}","\n\\end{block}");
         // item
         block_searching(/(\n- .*)+/,/-/g,"\t\\item","\n\\begin{itemize}","\n\\end{itemize}");
         // enum
