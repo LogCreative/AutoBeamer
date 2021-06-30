@@ -51,7 +51,32 @@ document.getElementById('markdownInput').addEventListener("change",function(e){
         block_searching(/(\n- .*)+/,/-/g,"\t\\item","\n\\begin{itemize}","\n\\end{itemize}");
         // enum
         block_searching(/(\n\d\. .*)+/,/\d\./g,"\t\\item","\n\\begin{enumerate}","\n\\end{enumerate}");
-        // TODO: table
+        
+        // table
+        while((titems = /(\|.*\|\n)+/.exec(file_content))!=null){
+            var content = titems[0];
+            var header = /\|.*\|\n/.exec(content);
+            var column = "";
+            var firstflag = true;
+            for(c in header[0]){
+                if (firstflag){
+                    firstflag = false;
+                    column += "\|";
+                    continue;
+                }
+                if (header[0][c] == "\|")
+                    column += "c\|";
+            }
+            var begenv = "\\begin{table}\n\\begin{tabular}{" + column + "}\n\\hline\n"
+            var endenv = "\\end{tabular}\n\\end{table}\n"
+            var index = titems.index;
+            var length = content.length;
+            content = content.replace(/\|(\-+\|)+\n/g,"");
+            content = content.replace(/\|(.*)\|\n/g,"$1\\\\\\hline\n");
+            content = content.replace(/\|/g, " & ");
+            file_content = file_content.substring(0,index) + begenv + content + endenv + file_content.substring(index+length,file_content.length);
+        }
+        
         // verbatim
         file_content = file_content
             .replace(/```\n([\s\S]+)```/gm,"\\end{frame}\\begin\{frame\}\[allowframebreaks,fragile\]\n\\begin\{verbatim\}\n$1\n\\end\{verbatim\}\n\\end{frame}\n\\begin{frame}[allowframebreaks]\n")
