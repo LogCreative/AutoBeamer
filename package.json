@@ -10,7 +10,8 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:autobeamer.helloWorld"
+		"onCommand:autobeamer.helloworld",
+		"onLanguage:markdown"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
