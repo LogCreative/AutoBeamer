@@ -7,10 +7,10 @@
 		"vscode": "^1.57.0"
 	},
 	"categories": [
-		"Other"
+		"Language Packs"
 	],
 	"activationEvents": [
-		"onCommand:autobeamer.helloworld",
+		"onCommand:autobeamer.helloWorld",
 		"onLanguage:markdown"
 	],
 	"main": "./out/extension.js",
