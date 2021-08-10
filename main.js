@@ -9,7 +9,6 @@ document.getElementById('markdownInput').addEventListener("change",function(e){
         file_content = file_content.replace(/&/g,'\\&')
             .replace(/%/g,'\\%')
             .replace(/~/g,'\~')
-            .replace(/\_/g,'\\_')
             .replace(/\r\n/g,'\n');         // Adapte CRLF
         file_content = file_content
             // ##### boldface with a space
@@ -21,7 +20,7 @@ document.getElementById('markdownInput').addEventListener("change",function(e){
             // ## section 
             .replace(/\#\# (.+)/g, "\\end{frame}\n\\section{$1}\n\\begin{frame}[allowframebreaks]")
             // # title
-            .replace(/\# (.+)/g, "\\documentclass[UTF8]{ctexbeamer}\n\\usepackage{ctex}\n\\usetheme{CambridgeUS}\n\\usefonttheme{professionalfonts}\n\\setbeamertemplate\{frametitle continuation\}\[from second\]\[(\\uppercase\\expandafter{\\romannumeral\\insertcontinuationcount\})\]\n\\def\\link#1#2{\\href{#1}{\\color{blue} #2}}\n\\usepackage{listings}\n\\setlength{\\parskip}{0.5em}\n\\setlength{\\parindent}{2em}\% You can comment this if no indent is needed.\n\\begin{document}\n\\title{$1}\n\\maketitle\n\\begin{frame}\n\\frametitle{提纲}\n\\tableofcontents\n\\end{frame}\n\\AtBeginSubsection\[\]\{\n\\begin{frame}\n\\frametitle{提纲\}\n\\tableofcontents[currentsection,currentsubsection]\n\\end{frame}\n\}\n\\begin{frame}[allowframebreaks]");
+            .replace(/\# (.+)/g, "\\documentclass[UTF8]{ctexbeamer}\n\\usepackage{ctex}\n\\usetheme{CambridgeUS}\n\\usefonttheme{professionalfonts}\n\\setbeamertemplate\{frametitle continuation\}\[from second\]\[(\\uppercase\\expandafter{\\romannumeral\\insertcontinuationcount\})\]\n\\def\\link#1#2{\\href{#1}{\\color{blue} #2}}\n\\usepackage{listings}\n\\usepackage{underscore}\n\\setlength{\\parskip}{0.5em}\n\\setlength{\\parindent}{2em}\% You can comment this if no indent is needed.\n\\begin{document}\n\\title{$1}\n\\maketitle\n\\begin{frame}\n\\frametitle{提纲}\n\\tableofcontents\n\\end{frame}\n\\AtBeginSubsection\[\]\{\n\\begin{frame}\n\\frametitle{提纲\}\n\\tableofcontents[currentsection,currentsubsection]\n\\end{frame}\n\}\n\\begin{frame}[allowframebreaks]");
         file_content = file_content
             // boldface syntax
             .replace(/\*\*([^\*]*)\*\*/g,"\\textbf\{$1\}") 
